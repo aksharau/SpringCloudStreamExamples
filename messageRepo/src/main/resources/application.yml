@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    stream:
+      bindings:       
+        msgInTopicName:
+          destination: test
+          content-type: text/plain               
+        msgOutTopicName:
+          destination: msgOut
+          content-type: text/plain
+          producer:
+            header-mode: raw
+             
+      kafka:
+        bindings:
+          msgInTopicName:
+            consumer:
+              contentType: text/plain
+              autoCommitOffset : false
+          msgOutTopicName:
+            producer:
+              contentType: text/plain
+              
+                                         
+        binder:
+          zkNodes: localhost
+          brokers: localhost 
+          configuration:
+            default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+            default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde         
+      
